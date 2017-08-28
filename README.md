@@ -2,13 +2,13 @@
 
 Description of this tutorial goes here. Used in your tutorial repo's README.md file.
 
-[Read this tutorial on The Meteor Chef](https://themeteorchef.com/tutorials/building-a-simple-twitter-clone)  
+[Read this tutorial on The Meteor Chef](https://themeteorchef.com/tutorials/building-a-simple-twitter-clone-with-meteor)  
 
 [Download the source (.zip)](https://github.com/themeteorchef/building-a-simple-twitter-clone/archive/master.zip)
 
 ---
 
-**Need help with this?** [Sign up for a Mentorship appointment](https://themeteorchef.com/mentorship?readme=building-a-simple-twitter-clone) and get 1-on-1 help.
+**Need help with this?** [Sign up for a Mentorship appointment](https://themeteorchef.com/mentorship?readme=building-a-simple-twitter-clone-with-meteor) and get 1-on-1 help.
 
 ---
 
