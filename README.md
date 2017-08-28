@@ -1,6 +1,6 @@
-#### Tutorial: Building a Simple Twitter Clone
+#### Tutorial: Building a Simple Twitter Clone with Meteor
 
-In this tutorial we'll learn how to build a simple Twitter clone using Meteor. We'll learn how to create tweets, handle @ mentions, and even wire up link unfurling.
+Description of this tutorial goes here. Used in your tutorial repo's README.md file.
 
 [Read this tutorial on The Meteor Chef](https://themeteorchef.com/tutorials/building-a-simple-twitter-clone)  
 
