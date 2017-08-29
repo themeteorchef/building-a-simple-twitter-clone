@@ -1,25 +1,26 @@
 import seeder from '@cleverbeagle/seeder';
+import faker from 'faker';
 import { Meteor } from 'meteor/meteor';
-import Documents from '../../api/Documents/Documents';
+import Pups from '../../api/Pups/Pups';
 
-const documentsSeed = userId => ({
-  collection: Documents,
+const pupsSeed = userId => ({
+  collection: Pups,
   environments: ['development', 'staging'],
   noLimit: true,
-  modelCount: 5,
+  modelCount: 20,
   model(dataIndex) {
     return {
-      owner: userId,
-      title: `Document #${dataIndex + 1}`,
-      body: `This is the body of document #${dataIndex + 1}`,
+      userId,
+      pup: `This is a test Pup #${dataIndex + 1} and #these #are #hashtags and @admin mentions.`,
     };
   },
 });
 
 seeder(Meteor.users, {
   environments: ['development', 'staging'],
-  noLimit: true,
+  noLimit: false,
   data: [{
+    username: 'admin',
     email: 'admin@admin.com',
     password: 'password',
     profile: {
@@ -30,13 +31,14 @@ seeder(Meteor.users, {
     },
     roles: ['admin'],
     data(userId) {
-      return documentsSeed(userId);
+      return pupsSeed(userId);
     },
   }],
   modelCount: 5,
-  model(index, faker) {
+  model(index) {
     const userCount = index + 1;
     return {
+      username: faker.internet.userName(),
       email: `user+${userCount}@test.com`,
       password: 'password',
       profile: {
@@ -47,7 +49,7 @@ seeder(Meteor.users, {
       },
       roles: ['user'],
       data(userId) {
-        return documentsSeed(userId);
+        return pupsSeed(userId);
       },
     };
   },

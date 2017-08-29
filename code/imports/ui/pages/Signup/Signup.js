@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, InputGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
@@ -58,8 +58,10 @@ class Signup extends React.Component {
 
   handleSubmit() {
     const { history } = this.props;
+    const username = this.username.value.replace('@', '').replace('#', '');
 
     Accounts.createUser({
+      username,
       email: this.emailAddress.value,
       password: this.password.value,
       profile: {
@@ -74,7 +76,7 @@ class Signup extends React.Component {
       } else {
         Meteor.call('users.sendVerificationEmail');
         Bert.alert('Welcome!', 'success');
-        history.push('/documents');
+        history.push(`/${username}`);
       }
     });
   }
@@ -120,6 +122,19 @@ class Signup extends React.Component {
                 </FormGroup>
               </Col>
             </Row>
+            <FormGroup>
+              <ControlLabel>Username</ControlLabel>
+              <InputGroup>
+                <InputGroup.Addon>@</InputGroup.Addon>
+                <input
+                  type="text"
+                  name="username"
+                  ref={username => (this.username = username)}
+                  className="form-control"
+                  placeholder="cleverbeagle"
+                />
+              </InputGroup>
+            </FormGroup>
             <FormGroup>
               <ControlLabel>Email Address</ControlLabel>
               <input

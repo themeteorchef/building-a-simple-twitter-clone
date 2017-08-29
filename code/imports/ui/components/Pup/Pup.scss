@@ -1,0 +1,50 @@
+@import '../../stylesheets/colors';
+
+.Pup {
+  margin: 0 auto;
+  width: 600px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 20px;
+
+  .Pup-user {
+    font-size: 14px;
+  }
+
+  .Pup-user span {
+    display: inline-block;
+    float: right;
+    color: #aaa;
+  }
+
+  .Pup-user strong {
+    display: inline-block;
+    float: left;
+  }
+
+  .Pup-user a {
+    display: inline-block;
+    color: #aaa;
+    margin-left: 5px;
+  }
+
+  .Pup-delete {
+    color: $danger;
+    opacity: 0.5;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 0;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .Pup-message {
+    margin: 0;
+    font-size: 15px;
+  }
+}

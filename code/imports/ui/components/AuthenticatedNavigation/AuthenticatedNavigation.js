@@ -4,11 +4,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 
-const AuthenticatedNavigation = ({ name }) => (
+const AuthenticatedNavigation = ({ username, name }) => (
   <div>
     <Nav>
-      <LinkContainer to="/documents">
-        <NavItem eventKey={1} href="/documents">Documents</NavItem>
+      <LinkContainer to={`/${username}`}>
+        <NavItem eventKey={1} href={`/${username}`}>@{username}</NavItem>
       </LinkContainer>
     </Nav>
     <Nav pullRight>
