@@ -1,4 +1,4 @@
-#### Tutorial: Building a Twitter Clone with Meteor
+#### Tutorial: Building a Twitter Clone with Meteor: Part 1
 
 Description of this tutorial goes here. Used in your tutorial repo's README.md file.
 
