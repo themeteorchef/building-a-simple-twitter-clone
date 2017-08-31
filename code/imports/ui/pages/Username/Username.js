@@ -41,9 +41,11 @@ class Username extends React.Component {
   }
 
   renderFollowButton() {
-    return this.state.following ?
-      <Button bsStyle="danger" onClick={this.handleFollowUnfollow}>Unfollow</Button> :
-      <Button bsStyle="default" onClick={this.handleFollowUnfollow}>Follow</Button>;
+    const { following } = this.state;
+    return (<Button
+      bsStyle={following ? 'danger' : 'default'}
+      onClick={this.handleFollowUnfollow}
+    >{following ? 'Unfollow' : 'Follow'}</Button>);
   }
 
   render() {

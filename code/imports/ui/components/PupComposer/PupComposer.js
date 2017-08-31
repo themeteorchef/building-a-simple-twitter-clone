@@ -18,17 +18,7 @@ class PupComposer extends React.Component {
   }
 
   postPup() {
-    const pup = this.pup.value;
-
-    if (pup.trim().length === 0) {
-      Bert.alert('Make sure to say something!', 'warning');
-      return;
-    }
-
-    if (pup.length > 140) {
-      Bert.alert('Shorten this up a bit before posting.', 'warning');
-      return;
-    }
+    const pup = this.pup.value.trim();
 
     Meteor.call('pups.insert', { pup }, (error) => {
       if (error) {

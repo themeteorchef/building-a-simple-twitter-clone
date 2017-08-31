@@ -47,6 +47,7 @@ rateLimit({
   methods: [
     'users.sendVerificationEmail',
     'users.editProfile',
+    'users.followUnfollow',
   ],
   limit: 5,
   timeRange: 1000,
