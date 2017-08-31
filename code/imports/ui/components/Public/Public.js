@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-const Public = ({ username, loggingIn, authenticated, component, ...rest }) => (
+const Public = ({ loggingIn, authenticated, component, ...rest }) => (
   <Route
     {...rest}
     render={props => (
       !authenticated ?
       (React.createElement(component, { ...props, loggingIn, authenticated })) :
-      (<Redirect to={`/`} />)
+      (<Redirect to="/" />)
     )}
   />
 );

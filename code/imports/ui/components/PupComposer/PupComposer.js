@@ -61,8 +61,6 @@ class PupComposer extends React.Component {
   }
 }
 
-PupComposer.propTypes = {
-  // prop: PropTypes.string.isRequired,
-};
+PupComposer.propTypes = {};
 
 export default PupComposer;

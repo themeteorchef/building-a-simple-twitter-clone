@@ -27,6 +27,9 @@ class Signup extends React.Component {
         lastName: {
           required: true,
         },
+        username: {
+          required: true,
+        },
         emailAddress: {
           required: true,
           email: true,
@@ -43,6 +46,9 @@ class Signup extends React.Component {
         lastName: {
           required: 'What\'s your last name?',
         },
+        username: {
+          required: 'What\'s a good username?',
+        },
         emailAddress: {
           required: 'Need an email address here.',
           email: 'Is this email address correct?',
@@ -53,13 +59,19 @@ class Signup extends React.Component {
         },
       },
       submitHandler() { component.handleSubmit(); },
+      errorPlacement(error, element) {
+        if (element.context.name === 'username') {
+          error.insertAfter('.username-input-group');
+        } else {
+          error.insertAfter(element);
+        }
+      },
     });
   }
 
   handleSubmit() {
     const { history } = this.props;
-    const username = this.username.value.replace('@', '').replace('#', '');
-
+    const username = this.username.value.replace(/\W/g, '');
     Accounts.createUser({
       username,
       email: this.emailAddress.value,
@@ -86,17 +98,6 @@ class Signup extends React.Component {
       <Row>
         <Col xs={12} sm={6} md={5} lg={4}>
           <h4 className="page-header">Sign Up</h4>
-          <Row>
-            <Col xs={12}>
-              <OAuthLoginButtons
-                services={['facebook', 'github', 'google']}
-                emailMessage={{
-                  offset: 97,
-                  text: 'Sign Up with an Email Address',
-                }}
-              />
-            </Col>
-          </Row>
           <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
             <Row>
               <Col xs={6}>
@@ -124,7 +125,7 @@ class Signup extends React.Component {
             </Row>
             <FormGroup>
               <ControlLabel>Username</ControlLabel>
-              <InputGroup>
+              <InputGroup className="username-input-group">
                 <InputGroup.Addon>@</InputGroup.Addon>
                 <input
                   type="text"

@@ -25,6 +25,22 @@ Meteor.methods({
       throw new Meteor.Error('500', exception);
     });
   },
+  'users.checkFollower': function usersCheckFollower(username) {
+    check(username, String);
+    return !!Meteor.users.findOne({ username, followers: { $in: [this.userId] } });
+  },
+  'users.followUnfollow': function usersFollowUnfollow(username) {
+    check(username, String);
+    const alreadyFollowing = Meteor.users.findOne({ username, followers: { $in: [this.userId] } });
+
+    if (alreadyFollowing) {
+      Meteor.users.update({ username }, { $pull: { followers: this.userId } });
+      return false;
+    }
+
+    Meteor.users.update({ username }, { $addToSet: { followers: this.userId } });
+    return true;
+  },
 });
 
 rateLimit({

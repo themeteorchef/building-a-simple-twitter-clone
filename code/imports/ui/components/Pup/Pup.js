@@ -10,12 +10,6 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import './Pup.scss';
 
 class Pup extends React.Component {
-  parsePup(pup) {
-    return pup
-    .replace(/#(\S+)/g, '<a href="/hashtag/$1">#$1</a>')
-    .replace(/@(\S+)/g, '<a href="/$1">@$1</a>');
-  }
-
   handleDeletePup(pupId) {
     Meteor.call('pups.remove', pupId, (error) => {
       if (error) {
@@ -26,13 +20,13 @@ class Pup extends React.Component {
 
   render() {
     const { user, pup } = this.props;
-    return pup && user ? (<div className="Pup">
+    return pup && user && user.profile ? (<div className="Pup">
       <p className="Pup-user clearfix">
         <strong>{user.profile.name.first} {user.profile.name.last}</strong>
         <Link to={`/${user.username}`}>@{user.username}</Link>
         <span><Link to={`/pups/${pup._id}`}>{timeago(pup.createdAt)}</Link></span>
       </p>
-      <p className="Pup-message" dangerouslySetInnerHTML={{ __html: this.parsePup(pup.pup) }} />
+      <p className="Pup-message" dangerouslySetInnerHTML={{ __html: pup.pup }} />
       {pup.userId === Meteor.userId() ?
         <Button
           role="button"

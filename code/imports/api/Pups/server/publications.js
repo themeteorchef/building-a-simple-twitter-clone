@@ -3,10 +3,13 @@ import { check } from 'meteor/check';
 import { _ } from 'meteor/underscore';
 import Pups from '../Pups';
 
-Meteor.publish('pups.username', function pupsUsername(username) {
+Meteor.publish('pups.username', (username) => {
   check(username, String);
-  const user = Meteor.users.findOne({ username });
-  return Pups.find({ userId: user._id }, { limit: 50, sort: { createdAt: -1 } });
+  const user = Meteor.users.find({ username }, { fields: { username: 1, profile: 1 } });
+  return [
+    user,
+    Pups.find({ userId: user.fetch()[0]._id }, { limit: 50, sort: { createdAt: -1 } }),
+  ];
 });
 
 Meteor.publish('pups.feed', function pupsFollowing() {
@@ -18,7 +21,11 @@ Meteor.publish('pups.feed', function pupsFollowing() {
   ];
 });
 
-Meteor.publish('pups.pup', function pupsPup(pupId) {
+Meteor.publish('pups.pup', (pupId) => {
   check(pupId, String);
-  return Pups.find({ _id: pupId });
+  const pup = Pups.find({ _id: pupId });
+  return [
+    pup,
+    Meteor.users.find({ _id: pup.fetch()[0].userId }),
+  ];
 });
