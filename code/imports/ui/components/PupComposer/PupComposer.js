@@ -25,6 +25,7 @@ class PupComposer extends React.Component {
         Bert.alert(error.reason, 'danger');
       } else {
         this.pup.value = '';
+        this.setState({ pupLengthRemaining: 140 });
       }
     });
   }
