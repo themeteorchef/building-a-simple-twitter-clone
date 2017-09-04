@@ -9,9 +9,9 @@ import PupComposer from '../../components/PupComposer/PupComposer';
 import PupsList from '../../components/Pups/Pups';
 import Loading from '../../components/Loading/Loading';
 
-import './Feed.scss';
+import './Hashtag.scss';
 
-class Feed extends React.Component {
+class Hashtag extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', () => {
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -22,10 +22,12 @@ class Feed extends React.Component {
   }
 
   render() {
-    const { loading, pups } = this.props;
+    const { loading, hashtag, pups } = this.props;
     return (
-      <div className="Feed">
-        <PupComposer />
+      <div className="Hashtag">
+        <header className="clearfix">
+          <h4>Pups mentioning #{hashtag}</h4>
+        </header>
         <PupsList pups={pups} />
         {loading ? <Loading /> : ''}
       </div>
@@ -33,26 +35,29 @@ class Feed extends React.Component {
   }
 }
 
-Feed.defaultProps = {
+Hashtag.defaultProps = {
   pups: [],
 };
 
-Feed.propTypes = {
+Hashtag.propTypes = {
   loading: PropTypes.bool.isRequired,
   pups: PropTypes.array,
   requestedPups: PropTypes.object.isRequired,
   totalPups: PropTypes.number.isRequired,
+  hashtag: PropTypes.string.isRequired,
 };
 
 const requestedPups = new ReactiveVar(25);
 
-export default createContainer(() => {
-  const subscription = Meteor.subscribe('pups.feed', requestedPups.get());
+export default createContainer(({ match }) => {
+  const hashtag = match.params.hashtag;
+  const subscription = Meteor.subscribe('pups.hashtag', hashtag, requestedPups.get());
 
   return {
     loading: !subscription.ready(),
+    hashtag,
     requestedPups,
-    totalPups: Counts.get('Pups.feed'),
+    totalPups: Counts.get('Pups.hashtag'),
     pups: Pups.find({}, { sort: { createdAt: -1 } }).fetch(),
   };
-}, Feed);
+}, Hashtag);

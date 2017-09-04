@@ -9,6 +9,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { createContainer } from 'meteor/react-meteor-data';
 import InputHint from '../../components/InputHint/InputHint';
+import Uploader from '../../components/Uploader/Uploader';
 import validate from '../../../modules/validate';
 
 import './Profile.scss';
@@ -89,6 +90,7 @@ class Profile extends React.Component {
           first: this.firstName.value,
           last: this.lastName.value,
         },
+        biography: this.biography.value,
       },
     };
 
@@ -125,6 +127,11 @@ class Profile extends React.Component {
 
   renderPasswordUser(loading, user) {
     return !loading ? (<div>
+      <FormGroup>
+        <ControlLabel>Profile Photo</ControlLabel>
+        {user.profile.photo ? <img src={user.profile.photo.url} alt={user.profile.photo.name} /> :
+        <Uploader method="users.setProfilePhoto" />}
+      </FormGroup>
       <Row>
         <Col xs={6}>
           <FormGroup>
@@ -151,6 +158,16 @@ class Profile extends React.Component {
           </FormGroup>
         </Col>
       </Row>
+      <FormGroup>
+        <ControlLabel>Biography</ControlLabel>
+        <textarea
+          type="text"
+          name="biography"
+          defaultValue={user.profile.biography}
+          ref={biography => (this.biography = biography)}
+          className="form-control"
+        />
+      </FormGroup>
       <FormGroup>
         <ControlLabel>Email Address</ControlLabel>
         <input

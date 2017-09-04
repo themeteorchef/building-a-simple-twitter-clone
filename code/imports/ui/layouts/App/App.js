@@ -15,6 +15,7 @@ import Index from '../../pages/Index/Index';
 import Feed from '../../pages/Feed/Feed';
 import ViewPup from '../../pages/ViewPup/ViewPup';
 import Username from '../../pages/Username/Username';
+import Hashtag from '../../pages/Hashtag/Hashtag';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
 import Logout from '../../pages/Logout/Logout';
@@ -50,6 +51,7 @@ const App = props => (
           {!props.authenticated ? <Route exact name="index" path="/" component={Index} /> : ''}
           {props.authenticated ? <Authenticated exact name="feed" path="/" component={Feed} {...props} /> : ''}
           <Route name="viewPup" path="/pups/:_id" component={ViewPup} />
+          <Route name="hashtag" path="/hashtag/:hashtag" component={Hashtag} />
           <Authenticated exact path="/profile" component={Profile} {...props} />
           <Public path="/signup" component={Signup} {...props} />
           <Public path="/login" component={Login} {...props} />

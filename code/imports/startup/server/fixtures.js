@@ -7,7 +7,7 @@ const pupsSeed = userId => ({
   collection: Pups,
   environments: ['development', 'staging'],
   noLimit: true,
-  modelCount: 20,
+  modelCount: 200,
   model(dataIndex) {
     return {
       userId,
