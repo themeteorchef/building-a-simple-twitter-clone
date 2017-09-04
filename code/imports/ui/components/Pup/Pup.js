@@ -18,6 +18,12 @@ class Pup extends React.Component {
     });
   }
 
+  setAtMentionsAndHashtags(pup) {
+    return pup
+    .replace(/@([a-zA-Z1-9]+)/g, '<a href="/$1">@$1</a>') // @mentions
+    .replace(/#([a-zA-Z1-9]+)/g, '<a href="/hashtag/$1">#$1</a>'); // #hashtags
+  }
+
   render() {
     const { user, pup } = this.props;
     return pup && user && user.profile ? (<div className="Pup">
@@ -26,7 +32,10 @@ class Pup extends React.Component {
         <Link to={`/${user.username}`}>@{user.username}</Link>
         <span><Link to={`/pups/${pup._id}`}>{timeago(pup.createdAt)}</Link></span>
       </p>
-      <p className="Pup-message" dangerouslySetInnerHTML={{ __html: pup.pup }} />
+      <p
+        className="Pup-message"
+        dangerouslySetInnerHTML={{ __html: this.setAtMentionsAndHashtags(pup.pup) }}
+      />
       {pup.userId === Meteor.userId() ?
         <Button
           role="button"

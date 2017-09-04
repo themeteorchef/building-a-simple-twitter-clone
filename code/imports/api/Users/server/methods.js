@@ -16,6 +16,7 @@ Meteor.methods({
           first: String,
           last: String,
         },
+        biography: String,
       },
     });
 
@@ -24,6 +25,10 @@ Meteor.methods({
     .catch((exception) => {
       throw new Meteor.Error('500', exception);
     });
+  },
+  'users.setProfilePhoto': function setProfilePhoto(photo) {
+    check(photo, Object);
+    return Meteor.users.update(this.userId, { $set: { 'profile.photo': photo } });
   },
   'users.checkFollower': function usersCheckFollower(username) {
     check(username, String);

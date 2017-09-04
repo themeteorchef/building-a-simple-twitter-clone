@@ -1,0 +1,45 @@
+.Uploader {
+  position: relative;
+  min-height: 75px;
+  background: #fff;
+  border: 1px dashed #eee;
+  text-align: center;
+  z-index: 999;
+
+  input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+    opacity: 0;
+
+    &:focus,
+    &:hover,
+    &:active {
+      outline: 0;
+    }
+  }
+
+  .Progress {
+    max-width: 250px;
+    margin: 30px auto 0;
+  }
+
+  p {
+    display: inline-block;
+    margin-top: 15px;
+  }
+
+  p {
+    font-size: 17px;
+    color: #333;
+  }
+
+  p span {
+    display: inline-block;
+    margin: 11px 0 0 5px;
+  }
+}
