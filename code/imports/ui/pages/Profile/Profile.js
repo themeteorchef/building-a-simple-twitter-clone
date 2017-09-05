@@ -129,8 +129,10 @@ class Profile extends React.Component {
     return !loading ? (<div>
       <FormGroup>
         <ControlLabel>Profile Photo</ControlLabel>
-        {user.profile.photo ? <img src={user.profile.photo.url} alt={user.profile.photo.name} /> :
-        <Uploader method="users.setProfilePhoto" />}
+        <div className="ProfilePhoto">
+          {user.profile.photo ? <img src={user.profile.photo.url} alt={user.profile.photo.name} /> : ''}
+          <Uploader method="users.setProfilePhoto" />
+        </div>
       </FormGroup>
       <Row>
         <Col xs={6}>

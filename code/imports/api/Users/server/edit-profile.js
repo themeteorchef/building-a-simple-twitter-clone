@@ -9,7 +9,8 @@ const updateUser = (userId, { emailAddress, profile }) => {
     Meteor.users.update(userId, {
       $set: {
         'emails.0.address': emailAddress,
-        profile,
+        'profile.name': profile.name,
+        'profile.biography': profile.biography,
       },
     });
   } catch (exception) {

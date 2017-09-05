@@ -36,7 +36,7 @@ class Uploader extends React.Component {
     uploadToS3(this, file)
     .then((url) => {
       this.uploadComputation.stop();
-      Meteor.call(this.props.method, { url, name: file.name }, (error) => {
+      Meteor.call(this.props.method, { url, name: `${Meteor.userId()}_${file.name}` }, (error) => {
         if (error) {
           this.setState({ isUploading: false, uploadProgress: 0 });
           Bert.alert(error.reason, 'danger');

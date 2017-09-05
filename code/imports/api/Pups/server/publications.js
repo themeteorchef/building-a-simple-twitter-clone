@@ -36,7 +36,7 @@ Meteor.publish('pups.feed', function pupsFollowing(limit) {
 Meteor.publish('pups.hashtag', function pupsUsername(hashtag, limit) {
   check(hashtag, String);
   check(limit, Number);
-  const hashtagRegex = new RegExp(hashtag, 'i');
+  const hashtagRegex = new RegExp(`#${hashtag}`, 'i');
   const userIds = _.pluck(Pups.find({ pup: hashtagRegex }).fetch(), 'userId');
   Counts.publish(this, 'Pups.hashtag', Pups.find({ pup: hashtagRegex }), { noReady: true });
 
