@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import editProfile from './edit-profile';
 import rateLimit from '../../../modules/rate-limit';
+import s3 from '../../../modules/server/s3';
 
 Meteor.methods({
   'users.sendVerificationEmail': function usersResendVerification() {
@@ -28,6 +29,8 @@ Meteor.methods({
   },
   'users.setProfilePhoto': function setProfilePhoto(photo) {
     check(photo, Object);
+    const user = Meteor.users.findOne(this.userId, { fields: { profile: 1 } });
+    if (user.profile.photo) s3.deleteFile(user.profile.photo);
     return Meteor.users.update(this.userId, { $set: { 'profile.photo': photo } });
   },
   'users.checkFollower': function usersCheckFollower(username) {

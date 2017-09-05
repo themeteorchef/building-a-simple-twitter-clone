@@ -58,19 +58,19 @@ class Username extends React.Component {
   }
 
   render() {
-    const { loading, username, pups, isCurrentUser } = this.props;
+    const { loading, username, user, pups, isCurrentUser } = this.props;
     return (<div className="Username">
       <header className="clearfix">
         <div>
-          <img src="http://fillmurray.com/40/40" alt={username} />
+          <img src={user && user.profile && user.profile.photo.url} alt={username} />
           <div className="NameFollow">
             <h4 className="pull-left">@{username}</h4>
             <span className="pull-right">{!isCurrentUser ? this.renderFollowButton() : ''}</span>
           </div>
         </div>
-        <div className="UsernameBio">
-          <p>The regret on our side is, they used to say years ago, we are reading about you in science class. Now they say, we are reading about you in history class.</p>
-        </div>
+        {user && user.profile && user.profile.biography ? <div className="UsernameBio">
+          <p>{user && user.profile && user.profile.biography}</p>
+        </div> : ''}
       </header>
       <PupsList pups={pups} />
       {loading ? <Loading /> : ''}
@@ -86,6 +86,7 @@ Username.propTypes = {
   match: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   pups: PropTypes.array,
   isCurrentUser: PropTypes.bool.isRequired,
   requestedPups: PropTypes.object.isRequired,
@@ -103,6 +104,7 @@ export default createContainer(({ match }) => {
     loading: !subscription.ready(),
     username,
     requestedPups,
+    user,
     totalPups: Counts.get(`Pups.username.${username}`),
     pups: Pups.find({}, { sort: { createdAt: -1 } }).fetch(),
     isCurrentUser: (user && user.username === username),

@@ -1,5 +1,18 @@
 @import '../../stylesheets/colors';
 
+.Profile .ProfilePhoto {
+  border: 1px solid $gray-lighter;
+  padding: 10px;
+  border-radius: 3px;
+
+  img {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
 .OAuthProfile {
   .LoggedInWith {
     padding: 10px 20px;

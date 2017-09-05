@@ -1,3 +1,5 @@
+@import '../../stylesheets/colors';
+
 .Progress {
   .progress-bar {
     display: block;
@@ -12,7 +14,7 @@
   .fill {
     height: 20px;
     border-radius: 30px;
-    background: green;
+    background: $success;
     transition: all .7s ease-in-out;
   }
 }

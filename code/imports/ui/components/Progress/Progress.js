@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Progress.scss';
+
 class Progress extends React.Component {
   constructor(props) {
     super(props);
