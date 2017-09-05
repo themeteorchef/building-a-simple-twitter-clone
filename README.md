@@ -1,4 +1,4 @@
-#### Tutorial: Building a Twitter Clone: Part One
+#### Tutorial: Building a Twitter Clone
 
 In this tutorial—part one of a series—we'll learn how to build a Twitter clone called Pupper. We'll learn how to post Pups (tweets), delete Pups, and read Pups. We'll also learn how to follow other users of Pupper so we can see their Pups.
 
