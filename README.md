@@ -1,6 +1,6 @@
 #### Tutorial: Building a Twitter Clone: Part Two
 
-Description of this tutorial goes here. Used in your tutorial repo's README.md file.
+In this tutorial—part one of a series—we'll learn how to build a Twitter clone called Pupper. We'll learn how to post Pups (tweets), delete Pups, and read Pups. We'll also learn how to follow other users of Pupper so we can see their Pups.
 
 [Read this tutorial on The Meteor Chef](https://themeteorchef.com/tutorials/building-a-twitter-clone-part-two)  
 
