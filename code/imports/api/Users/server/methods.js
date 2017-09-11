@@ -37,6 +37,15 @@ Meteor.methods({
     check(username, String);
     return !!Meteor.users.findOne({ username, followers: { $in: [this.userId] } });
   },
+  'users.getFollowCounts': function usersGetFollowCounts(username) {
+    check(username, String);
+    const user = Meteor.users.findOne({ username }, { fields: { followers: 1 } });
+    const following = Meteor.users.find({ followers: { $in: [user._id] } }).count();
+    return {
+      followers: user.followers.length,
+      following,
+    };
+  },
   'users.followUnfollow': function usersFollowUnfollow(username) {
     check(username, String);
     const alreadyFollowing = Meteor.users.findOne({ username, followers: { $in: [this.userId] } });

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -15,18 +15,27 @@ import './Username.scss';
 class Username extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { following: false };
+    this.state = { following: false, counts: { followers: 0, following: 0 } };
     this.handleFollowUnfollow = this.handleFollowUnfollow.bind(this);
     this.renderFollowButton = this.renderFollowButton.bind(this);
   }
 
   componentDidMount() {
     const { match: { params: { username } } } = this.props;
+
     Meteor.call('users.checkFollower', username, (error, following) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
         this.setState({ following });
+      }
+    });
+
+    Meteor.call('users.getFollowCounts', username, (error, counts) => {
+      if (error) {
+        Bert.alert(error.reason, 'danger');
+      } else {
+        this.setState({ counts });
       }
     });
 
@@ -59,10 +68,11 @@ class Username extends React.Component {
 
   render() {
     const { loading, username, user, pups, isCurrentUser } = this.props;
-    return (<div className="Username">
+    const userPhoto = user && user.profile && user.profile.photo && user.profile.photo.url;
+    return (!loading ? (<div className="Username">
       <header className="clearfix">
-        <div>
-          <img src={user && user.profile && user.profile.photo.url} alt={username} />
+        <div className="clearfix">
+          <img src={userPhoto || 'https://s3-us-west-2.amazonaws.com/tmc-pupper/default-avatar.png'} alt={username} />
           <div className="NameFollow">
             <h4 className="pull-left">@{username}</h4>
             <span className="pull-right">{!isCurrentUser ? this.renderFollowButton() : ''}</span>
@@ -71,10 +81,26 @@ class Username extends React.Component {
         {user && user.profile && user.profile.biography ? <div className="UsernameBio">
           <p>{user && user.profile && user.profile.biography}</p>
         </div> : ''}
+        <div className="UsernameFollowCounts">
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>Followers</th>
+                <th>Following</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.state.counts && this.state.counts.followers}</td>
+                <td>{this.state.counts && this.state.counts.following}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
       </header>
       <PupsList pups={pups} />
       {loading ? <Loading /> : ''}
-    </div>);
+    </div>) : <Loading />);
   }
 }
 
@@ -98,15 +124,16 @@ const requestedPups = new ReactiveVar(25);
 export default createContainer(({ match }) => {
   const username = match.params.username;
   const subscription = Meteor.subscribe('pups.username', username, requestedPups.get());
-  const user = Meteor.user();
+  const currentUser = Meteor.user();
+  const userBeingViewed = Meteor.users.findOne({ username });
 
   return {
     loading: !subscription.ready(),
     username,
     requestedPups,
-    user,
+    user: userBeingViewed,
     totalPups: Counts.get(`Pups.username.${username}`),
     pups: Pups.find({}, { sort: { createdAt: -1 } }).fetch(),
-    isCurrentUser: (user && user.username === username),
+    isCurrentUser: (currentUser && currentUser.username === username),
   };
 }, Username);

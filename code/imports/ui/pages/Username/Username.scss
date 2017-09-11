@@ -20,4 +20,25 @@
     font-size: 16px;
     line-height: 22px;
   }
+
+  .UsernameFollowCounts {
+    padding-top: 20px;
+
+    .table {
+      margin-bottom: 0px;
+    }
+
+    tr {
+      border-bottom: none;
+    }
+
+    tr th,
+    tr td {
+      text-align: center;
+    }
+
+    thead tr th {
+      border-bottom: none;
+    }
+  }
 }
