@@ -32,6 +32,18 @@ const PupsSchema = new SimpleSchema({
     label: 'The pup.',
     max: 140,
     min: 1,
+    optional: true,
+  },
+  repup: {
+    type: Object,
+    optional: true,
+    blackbox: true,
+  },
+  metadata: {
+    type: Object,
+    label: 'If applicable, any URL metadata for this Pup.',
+    optional: true,
+    blackbox: true,
   },
 });
 

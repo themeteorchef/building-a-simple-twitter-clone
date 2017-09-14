@@ -3,7 +3,10 @@ import '../../api/Documents/server/publications';
 
 import '../../api/OAuth/server/methods';
 
-import '../../api/Pups/methods';
+import '../../api/Notifications/methods';
+import '../../api/Notifications/server/publications';
+
+import '../../api/Pups/server/methods';
 import '../../api/Pups/server/publications';
 
 import '../../api/Users/server/methods';

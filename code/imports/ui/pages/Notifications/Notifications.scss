@@ -1,0 +1,49 @@
+.Notifications {
+  border: 1px solid #eee;
+  display: block;
+  width: 600px;
+  margin: 0 auto;
+  border-radius: 3px;
+}
+
+.Notifications + .Loading {
+  display: block;
+  border-top: 1px solid #eee;
+  text-align: center;
+  padding: 10px 0 7px;
+  svg {
+    display: inline-block;
+  }
+}
+
+.Notifications ol {
+  padding: 0;
+  margin: 0;
+}
+
+.Notifications ol > li {
+  list-style: none;
+  padding: 20px;
+
+  .Notification {
+    border: none;
+    padding: 0;
+    width: auto;
+  }
+
+  .Notification-message {
+
+  }
+
+  .Notification-date {
+    color: #aaa;
+  }
+
+  .Notification .Pup {
+    max-width: 100%;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+}

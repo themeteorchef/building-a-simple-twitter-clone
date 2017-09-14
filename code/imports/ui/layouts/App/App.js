@@ -8,6 +8,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import { Bert } from 'meteor/themeteorchef:bert';
+import { Counts } from 'meteor/tmeasday:publish-counts';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
@@ -16,6 +17,7 @@ import Feed from '../../pages/Feed/Feed';
 import ViewPup from '../../pages/ViewPup/ViewPup';
 import Username from '../../pages/Username/Username';
 import Hashtag from '../../pages/Hashtag/Hashtag';
+import Notifications from '../../pages/Notifications/Notifications';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
 import Logout from '../../pages/Logout/Logout';
@@ -52,6 +54,7 @@ const App = props => (
           {props.authenticated ? <Authenticated exact name="feed" path="/" component={Feed} {...props} /> : ''}
           <Route name="viewPup" path="/pups/:_id" component={ViewPup} />
           <Route name="hashtag" path="/hashtag/:hashtag" component={Hashtag} />
+          <Authenticated exact path="/notifications" component={Notifications} {...props} />
           <Authenticated exact path="/profile" component={Profile} {...props} />
           <Public path="/signup" component={Signup} {...props} />
           <Public path="/login" component={Login} {...props} />
@@ -89,6 +92,7 @@ const getUserName = name => ({
 }[typeof name]);
 
 export default createContainer(() => {
+  Meteor.subscribe('notifications.userCount');
   const loggingIn = Meteor.loggingIn();
   const user = Meteor.user();
   const userId = Meteor.userId();
@@ -106,5 +110,6 @@ export default createContainer(() => {
     emailAddress,
     username: user && user.username,
     emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
+    notifications: Counts.get('notifications.userCount'),
   };
 }, App);

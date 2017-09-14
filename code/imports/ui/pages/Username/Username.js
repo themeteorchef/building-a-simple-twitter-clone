@@ -69,7 +69,7 @@ class Username extends React.Component {
   render() {
     const { loading, username, user, pups, isCurrentUser } = this.props;
     const userPhoto = user && user.profile && user.profile.photo && user.profile.photo.url;
-    return (!loading ? (<div className="Username">
+    return (<div className="Username">
       <header className="clearfix">
         <div className="clearfix">
           <img src={userPhoto || 'https://s3-us-west-2.amazonaws.com/tmc-pupper/default-avatar.png'} alt={username} />
@@ -100,7 +100,7 @@ class Username extends React.Component {
       </header>
       <PupsList pups={pups} />
       {loading ? <Loading /> : ''}
-    </div>) : <Loading />);
+    </div>);
   }
 }
 
