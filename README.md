@@ -1,6 +1,6 @@
 #### Tutorial: Building a Twitter Clone: Part Three
 
-Description of this tutorial goes here. Used in your tutorial repo's README.md file.
+In this three part series, we'll take a look at building a simple Twitter clone using Meteor and React.
 
 [Read this tutorial on The Meteor Chef](https://themeteorchef.com/tutorials/building-a-twitter-clone-part-three)  
 
